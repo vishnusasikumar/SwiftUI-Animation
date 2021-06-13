@@ -30,9 +30,9 @@ struct Spinner: View {
     }
     
     // MARK: Animation methods
-        func animateSpinner(with timeInterval: Double, completion: @escaping (() -> Void)) {
-            Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: false) { _ in
-                withAnimation(Animation.easeInOut(duration: rotationTime)) {
+        func animateSpinner(with duration: Double, completion: @escaping (() -> Void)) {
+            Timer.scheduledTimer(withTimeInterval: duration, repeats: false) { _ in
+                withAnimation(Animation.easeInOut(duration: self.rotationTime)) {
                     completion()
                 }
             }
@@ -40,6 +40,14 @@ struct Spinner: View {
 
         func animateSpinner() {
             animateSpinner(with: rotationTime) { self.spinnerEndS1 = 1.0 }
+            
+            animateSpinner(with: (rotationTime * 2)) {
+                self.spinnerEndS1 = 0.03
+            }
+            
+            animateSpinner(with: (rotationTime * 2) - 0.025) {
+                self.rotationDegreeS1 += fullRotation
+            }
         }
 }
 
